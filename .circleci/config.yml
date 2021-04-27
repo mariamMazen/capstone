@@ -39,22 +39,22 @@ jobs:
             . venv/bin/activate
             make lint 
 
-    deploy-infrastructure:
-      docker:
-        - image: amazon/aws-cli
-      steps:
-        - checkout
-        - run:
-            name: install tar
-            command: |
-              yum -y install tar gzip
-        - run:
-            name: create kubernetes cluster
-            command: |
-              eksctl create cluster \
-                --name capstone-cluster \
-                --region us-west-2 \
-                --fargate
+  deploy-infrastructure:
+    docker:
+      - image: amazon/aws-cli
+    steps:
+      - checkout
+      - run:
+          name: install tar
+          command: |
+            yum -y install tar gzip
+      - run:
+          name: create kubernetes cluster
+          command: |
+            eksctl create cluster \
+              --name capstone-cluster \
+              --region us-west-2 \
+              --fargate
 workflows:
   default:
     jobs:
