@@ -1,4 +1,6 @@
 version: 2.1
+orbs:
+  aws-eks: circleci/aws-eks@1.1.0
 jobs:
   build:
     docker:
@@ -57,3 +59,5 @@ workflows:
     jobs:
       - build
       - deploy-infrastructure
+      - aws-eks/delete-cluster:
+          cluster-name: capstone-cluster
