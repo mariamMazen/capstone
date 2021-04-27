@@ -56,4 +56,4 @@ workflows:
     jobs:
       - build
       - rollback: 
-          requires: build
+          requires: [build]
