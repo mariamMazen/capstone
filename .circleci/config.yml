@@ -38,11 +38,22 @@ jobs:
             . venv/bin/activate
             make lint 
 
+  rollback:
+    docker:
+      - image: amazon/aws-cli
+    steps:
+      - checkout
+      - run:
+          name: install tar
+          command: |
+            yum -y install tar gzip
+      - run:
+          name: create kubernetes cluster
+          command: |
+            eksctl delete cluster --name capstone-cluster
 workflows:
   default:
     jobs:
       - build
-      - aws-eks/create-cluster:
-          cluster-name: udacity-capstone
-      - aws-eks/delete-cluster:
-          cluster-name: udacity-capstone
+      - rollback: 
+          requires: build
